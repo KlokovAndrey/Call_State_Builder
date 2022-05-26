@@ -1,0 +1,5 @@
+container:
+  image: metam-docker-hosted.forge.avaya.com/call-state-builder:1.1.1
+  port: 85
+  nodePort: 30001
+replicaCount: 1

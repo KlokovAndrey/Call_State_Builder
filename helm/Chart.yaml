@@ -1,0 +1,6 @@
+apiVersion: v2
+name: call-state-builder
+description: Helm chart for call-state-builder
+type: application
+version: 0.1.0
+appVersion: "1.1.1"

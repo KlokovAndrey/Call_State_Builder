@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.avaya.ccaas</groupId>
     <artifactId>Call_State_Builder</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.1.1</version>
     <name>Call_State_Builder</name>
     <description>Call_State_Builder</description>
     <properties>
@@ -128,6 +128,31 @@
                             <outputDirectory>${project.basedir}/target/generated-sources/avro/</outputDirectory>
                             <stringType>String</stringType>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>1.6.1</version>
+                <configuration>
+                    <allowInsecureRegistries>true</allowInsecureRegistries>
+                    <from>
+                        <image>metam-docker-hosted.forge.avaya.com/openjdk11-dd-base-image:1.0.6</image>
+                    </from>
+                    <to>
+                        <image>metam-docker-hosted.forge.avaya.com/call-state-builder</image>
+                        <tags>
+                            <tag>1.1.1</tag>
+                        </tags>
+                    </to>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>dockerBuild</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
