@@ -1,0 +1,19 @@
+{
+    "type": "record",
+    "namespace": "com.avaya.ccaas.participant_state_adapter.avro",
+    "name": "ParticipantStateAvro",
+    "fields":[
+        {
+            "name": "id",
+            "type": "string"
+        },
+        {
+            "name": "callId",
+            "type": "string"
+        },
+        {
+            "name": "name",
+            "type": "string"
+        }
+    ]
+}

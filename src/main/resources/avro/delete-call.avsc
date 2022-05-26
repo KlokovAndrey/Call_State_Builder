@@ -1,0 +1,8 @@
+{
+  "namespace": "com.avaya.calladapter",
+  "type":"record",
+  "name": "KafkaDeleteCall",
+  "fields": [
+    {"name": "id", "type": "string", "default": ""}
+  ]
+}

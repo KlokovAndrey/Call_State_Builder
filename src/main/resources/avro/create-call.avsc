@@ -1,0 +1,25 @@
+{
+  "namespace": "com.avaya.calladapter",
+  "type":"record",
+  "name": "KafkaCreateCall",
+  "fields": [
+    {"name": "id", "type": "string"},
+    {"name": "callerNumber", "type": "string"},
+    {"name": "calledNumber", "type": "string"},
+    {"name": "engagementDialogId", "type": "string"},
+    {"name": "participant", "type": {
+      "type": "record",
+      "name": "KafkaParticipant",
+      "fields": [
+        {"name": "id", "type": "string"},
+        {"name": "name", "type": "string"}
+      ]
+    }},
+    {"name": "timestamp",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      }
+    }
+  ]
+}
