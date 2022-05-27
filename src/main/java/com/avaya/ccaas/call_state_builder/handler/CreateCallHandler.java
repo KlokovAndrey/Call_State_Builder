@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class CreateCallHandler implements EventHandler<KafkaCreateCall>{
+public class CreateCallHandler implements EventHandler<KafkaCreateCall> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateCallHandler.class);
     private final CallContextRepository repository;
@@ -18,8 +18,10 @@ public class CreateCallHandler implements EventHandler<KafkaCreateCall>{
     @Override
     public void handle(final KafkaCreateCall value) {
         LOGGER.info("KafkaCreateCall " + value);
+
         CallContext callContext = CallContext.createFromKafkaMessage(value);
         repository.save(callContext.getId(), callContext);
+
         LOGGER.info("Call context with id=" + callContext.getId() + " has been saved");
     }
 }

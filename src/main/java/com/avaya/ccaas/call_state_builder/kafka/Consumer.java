@@ -26,6 +26,7 @@ public class Consumer {
 
     @EventListener(ApplicationStartedEvent.class)
     public void listen() {
+
         parallelConsumer.poll(record -> {
             GenericRecord value = record.value();
             LOGGER.info("Concurrently processing a record: {}", value);

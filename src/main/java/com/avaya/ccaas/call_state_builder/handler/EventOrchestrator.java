@@ -20,8 +20,12 @@ public class EventOrchestrator {
     private final AddParticipantHandler addParticipantHandler;
     private final RemoveParticipantHandler removeParticipantHandler;
 
-    public EventOrchestrator(final CreateCallHandler createCallHandler, final DeleteCallHandler deleteCallHandler,
-        final AddParticipantHandler addParticipantHandler, final RemoveParticipantHandler removeParticipantHandler) {
+    public EventOrchestrator(
+        final CreateCallHandler createCallHandler,
+        final DeleteCallHandler deleteCallHandler,
+        final AddParticipantHandler addParticipantHandler,
+        final RemoveParticipantHandler removeParticipantHandler
+    ) {
         this.createCallHandler = createCallHandler;
         this.deleteCallHandler = deleteCallHandler;
         this.addParticipantHandler = addParticipantHandler;
@@ -29,17 +33,21 @@ public class EventOrchestrator {
     }
 
     public void handle(final GenericRecord value) {
-       if (KafkaCreateCall.class.getName().equals(value.getClass().getName())) {
-           createCallHandler.handle((KafkaCreateCall) value);
-       } else if (KafkaDeleteCall.class.getName().equals(value.getClass().getName())) {
-           deleteCallHandler.handle((KafkaDeleteCall) value);
-       } else if (ParticipantStateAvro.class.getName().equals(value.getClass().getName())) {
-           addParticipantHandler.handle((ParticipantStateAvro) value);
-       } else if (ParticipantIdAvro.class.getName().equals(value.getClass().getName())) {
-           removeParticipantHandler.handle((ParticipantIdAvro) value);
-       } else {
-           LOGGER.error("Not possible to handle kafka message " + value);
-           throw new HandlerException("Kafka type does not exist");
-       }
+        if (KafkaCreateCall.class.getName().equals(value.getClass().getName())) {
+            createCallHandler.handle((KafkaCreateCall) value);
+        }
+        else if (KafkaDeleteCall.class.getName().equals(value.getClass().getName())) {
+            deleteCallHandler.handle((KafkaDeleteCall) value);
+        }
+        else if (ParticipantStateAvro.class.getName().equals(value.getClass().getName())) {
+            addParticipantHandler.handle((ParticipantStateAvro) value);
+        }
+        else if (ParticipantIdAvro.class.getName().equals(value.getClass().getName())) {
+            removeParticipantHandler.handle((ParticipantIdAvro) value);
+        }
+        else {
+            LOGGER.error("Not possible to handle kafka message " + value);
+            throw new HandlerException("Kafka type does not exist");
+        }
     }
 }

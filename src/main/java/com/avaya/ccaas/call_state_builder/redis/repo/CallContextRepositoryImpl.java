@@ -11,7 +11,7 @@ import javax.annotation.PostConstruct;
 
 @RequiredArgsConstructor
 @Component
-public class CallContextRepositoryImpl implements CallContextRepository{
+public class CallContextRepositoryImpl implements CallContextRepository {
 
     private final String TABLE_NAME = "call-context";
 
@@ -19,7 +19,7 @@ public class CallContextRepositoryImpl implements CallContextRepository{
     private RMap<String, CallContext> map;
 
     @PostConstruct
-    private void init(){
+    private void init() {
         map = client.getMap(TABLE_NAME);
     }
 
@@ -34,26 +34,12 @@ public class CallContextRepositoryImpl implements CallContextRepository{
     }
 
     @Override
-    public CallContext findOne(String key){
+    public CallContext findOne(final String key) {
         return map.get(key);
     }
 
     @Override
     public void remove(final String key) {
         map.fastRemove(key);
-    }
-
-    @Override
-    public void removeParticipant(String callId, String participantId){
-        CallContext call = findOne(callId);
-        call.getParticipants().removeIf(p -> p.getId().equals(participantId));
-        update(callId, call);
-    }
-
-    @Override
-    public void addParticipant(String key, ParticipantContext participantContext){
-        CallContext call = findOne(key);
-        call.getParticipants().add(participantContext);
-        update(key, call);
     }
 }
