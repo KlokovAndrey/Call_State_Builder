@@ -1,5 +1,6 @@
 package com.avaya.ccaas.call_state_builder.kafka;
 
+import com.avaya.ccaas.call_state_builder.exception.HandlerException;
 import com.avaya.ccaas.call_state_builder.handler.EventOrchestrator;
 import io.confluent.parallelconsumer.ParallelStreamProcessor;
 import org.apache.avro.generic.GenericRecord;
@@ -28,9 +29,14 @@ public class Consumer {
     public void listen() {
 
         parallelConsumer.poll(record -> {
-            GenericRecord value = record.value();
-            LOGGER.info("Concurrently processing a record: {}", value);
-            eventOrchestrator.handle(value);
+            try {
+                GenericRecord value = record.value();
+                LOGGER.info("Concurrently processing a record: {}", value);
+                eventOrchestrator.handle(value);
+            } catch (HandlerException ex) {
+                LOGGER.error(ex.getMessage());
+            }
+
         });
     }
 }
