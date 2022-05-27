@@ -18,7 +18,7 @@ public class DeleteCallHandler implements EventHandler<KafkaDeleteCall> {
     public void handle(final KafkaDeleteCall value) {
         LOGGER.info("KafkaDeleteCall " + value);
         String callId = value.getId();
-        repository.delete(callId);
+        repository.remove(callId);
         LOGGER.info("Call context with id=" + callId + " has been deleted");
     }
 }

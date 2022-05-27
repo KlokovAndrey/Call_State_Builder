@@ -2,7 +2,6 @@ package com.avaya.ccaas.call_state_builder.handler;
 
 import com.avaya.calladapter.KafkaCreateCall;
 import com.avaya.ccaas.call_state_builder.redis.model.CallContext;
-import com.avaya.ccaas.call_state_builder.redis.model.ParticipantContext;
 import com.avaya.ccaas.call_state_builder.redis.repo.CallContextRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -21,6 +20,6 @@ public class CreateCallHandler implements EventHandler<KafkaCreateCall>{
         LOGGER.info("KafkaCreateCall " + value);
         CallContext callContext = CallContext.createFromKafkaMessage(value);
         repository.save(callContext.getId(), callContext);
-        LOGGER.info("Call context has been saved");
+        LOGGER.info("Call context with id=" + callContext.getId() + " has been saved");
     }
 }
