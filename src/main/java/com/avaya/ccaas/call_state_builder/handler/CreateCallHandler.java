@@ -5,6 +5,7 @@ import com.avaya.ccaas.call_state_builder.converter.KafkaCreateCallConverter;
 import com.avaya.ccaas.call_state_builder.redis.model.CallContext;
 import com.avaya.ccaas.call_state_builder.redis.repo.CallContextRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.avro.generic.GenericRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

@@ -25,10 +25,15 @@ public class AddParticipantHandler implements EventHandler<ParticipantStateAvro>
         String key = value.getCallId();
         ParticipantContext participantContext = converter.fromAvro(value);
         CallContext call = repository.findOne(key);
-        checkCallContext(call);
-        call.getParticipants().add(participantContext);
-        repository.update(key, call);
+        checkCallContextOnNull(call);
+        CallContext updatedCallContext = addParticipant(call, participantContext);
+        repository.update(key, updatedCallContext);
 
         LOGGER.info("Participant id={} has been added to the call context id={}", participantContext.getId(), key);
+    }
+
+    private CallContext addParticipant(CallContext call, ParticipantContext participantContext) {
+        call.getParticipants().add(participantContext);
+        return call;
     }
 }

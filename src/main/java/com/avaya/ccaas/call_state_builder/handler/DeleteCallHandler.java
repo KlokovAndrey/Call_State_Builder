@@ -3,6 +3,7 @@ package com.avaya.ccaas.call_state_builder.handler;
 import com.avaya.calladapter.KafkaDeleteCall;
 import com.avaya.ccaas.call_state_builder.redis.repo.CallContextRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.avro.generic.GenericRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

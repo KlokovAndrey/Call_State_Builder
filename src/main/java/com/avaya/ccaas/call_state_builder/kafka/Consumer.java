@@ -36,7 +36,6 @@ public class Consumer {
             } catch (HandlerException ex) {
                 LOGGER.error(ex.getMessage());
             }
-
         });
     }
 }
