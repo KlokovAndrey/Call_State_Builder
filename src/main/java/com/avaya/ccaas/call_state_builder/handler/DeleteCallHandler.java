@@ -16,11 +16,11 @@ public class DeleteCallHandler implements EventHandler<KafkaDeleteCall> {
 
     @Override
     public void handle(final KafkaDeleteCall value) {
-        LOGGER.info("KafkaDeleteCall " + value);
+        LOGGER.info("KafkaDeleteCall {}", value);
 
         String callId = value.getId();
         repository.remove(callId);
 
-        LOGGER.info("Call context with id=" + callId + " has been deleted");
+        LOGGER.info("Call context with id={} has been deleted", callId);
     }
 }

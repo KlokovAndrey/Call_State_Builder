@@ -1,5 +1,6 @@
 package com.avaya.ccaas.call_state_builder.handler;
 
+import com.avaya.ccaas.call_state_builder.converter.ParticipantStateAvroConverter;
 import com.avaya.ccaas.call_state_builder.redis.model.CallContext;
 import com.avaya.ccaas.call_state_builder.redis.model.ParticipantContext;
 import com.avaya.ccaas.call_state_builder.redis.repo.CallContextRepository;
@@ -15,18 +16,19 @@ public class AddParticipantHandler implements EventHandler<ParticipantStateAvro>
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ParticipantStateAvro.class);
     private final CallContextRepository repository;
+    private final ParticipantStateAvroConverter converter;
 
     @Override
     public void handle(final ParticipantStateAvro value) {
-        LOGGER.info("ParticipantStateAvro " + value);
+        LOGGER.info("ParticipantStateAvro {}", value);
 
         String key = value.getCallId();
-        ParticipantContext participantContext = ParticipantContext.createFromKafkaMessage(value);
+        ParticipantContext participantContext = converter.fromAvro(value);
         CallContext call = repository.findOne(key);
         checkCallContext(call);
         call.getParticipants().add(participantContext);
         repository.update(key, call);
 
-        LOGGER.info("Participant {id=" + participantContext.getId() + "} has been added to the call context {id=" + key + "}");
+        LOGGER.info("Participant id={} has been added to the call context id={}", participantContext.getId(), key);
     }
 }

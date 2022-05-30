@@ -1,6 +1,7 @@
 package com.avaya.ccaas.call_state_builder.handler;
 
 import com.avaya.calladapter.KafkaCreateCall;
+import com.avaya.ccaas.call_state_builder.converter.KafkaCreateCallConverter;
 import com.avaya.ccaas.call_state_builder.redis.model.CallContext;
 import com.avaya.ccaas.call_state_builder.redis.repo.CallContextRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,14 +15,15 @@ public class CreateCallHandler implements EventHandler<KafkaCreateCall> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateCallHandler.class);
     private final CallContextRepository repository;
+    private final KafkaCreateCallConverter converter;
 
     @Override
     public void handle(final KafkaCreateCall value) {
-        LOGGER.info("KafkaCreateCall " + value);
+        LOGGER.info("KafkaCreateCall {}", value);
 
-        CallContext callContext = CallContext.createFromKafkaMessage(value);
+        CallContext callContext = converter.fromAvro(value);
         repository.save(callContext.getId(), callContext);
 
-        LOGGER.info("Call context with id=" + callContext.getId() + " has been saved");
+        LOGGER.info("Call context with id={} has been saved", callContext.getId());
     }
 }

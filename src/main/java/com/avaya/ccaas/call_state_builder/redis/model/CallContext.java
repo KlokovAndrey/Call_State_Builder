@@ -25,15 +25,4 @@ public class CallContext implements Serializable {
     private String engagementDialogId;
     private String timestamp;
     private ArrayList<ParticipantContext> participants;
-
-    public static CallContext createFromKafkaMessage(KafkaCreateCall call) {
-        return CallContext.builder()
-            .id(call.getId())
-            .callerNumber(call.getCallerNumber())
-            .calledNumber(call.getCalledNumber())
-            .engagementDialogId(call.getEngagementDialogId())
-            .timestamp(call.getTimestamp().toString())
-            .participants(new ArrayList<>(Arrays.asList(ParticipantContext.createFromKafkaMessage(call.getParticipant()))))
-            .build();
-    }
 }

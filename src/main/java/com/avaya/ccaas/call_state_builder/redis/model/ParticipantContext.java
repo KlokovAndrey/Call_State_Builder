@@ -17,12 +17,4 @@ public class ParticipantContext {
 
     private String id;
     private String name;
-
-    public static ParticipantContext createFromKafkaMessage(final KafkaParticipant participant) {
-        return ParticipantContext.builder().id(participant.getId()).name(participant.getName()).build();
-    }
-
-    public static ParticipantContext createFromKafkaMessage(final ParticipantStateAvro participant) {
-        return ParticipantContext.builder().id(participant.getId()).name(participant.getName()).build();
-    }
 }

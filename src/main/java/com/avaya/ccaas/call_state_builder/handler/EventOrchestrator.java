@@ -46,7 +46,7 @@ public class EventOrchestrator {
             removeParticipantHandler.handle((ParticipantIdAvro) value);
         }
         else {
-            LOGGER.error("Not possible to handle kafka message " + value);
+            LOGGER.error("Not possible to handle kafka message {}", value);
             throw new HandlerException("Kafka type does not exist");
         }
     }

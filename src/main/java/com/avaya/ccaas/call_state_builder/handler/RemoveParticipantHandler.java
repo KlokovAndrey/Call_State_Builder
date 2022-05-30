@@ -17,7 +17,7 @@ public class RemoveParticipantHandler implements EventHandler<ParticipantIdAvro>
 
     @Override
     public void handle(final ParticipantIdAvro value) {
-        LOGGER.info("ParticipantIdAvro " + value);
+        LOGGER.info("ParticipantIdAvro {}", value);
 
         String callId = value.getCallId();
         String participantId = value.getId();
@@ -26,6 +26,6 @@ public class RemoveParticipantHandler implements EventHandler<ParticipantIdAvro>
         call.getParticipants().removeIf(p -> p.getId().equals(participantId));
         repository.update(callId, call);
 
-        LOGGER.info("Participant {id=" + participantId + "} has been removed from the call context {id=" + callId + "}");
+        LOGGER.info("Participant id={} has been removed from the call context id={}", participantId, callId);
     }
 }
